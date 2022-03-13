@@ -1,11 +1,7 @@
+// Rock Paper Scissors! But this time I realize I'm supposed to use strings instead of integers.
+
 let playerScore = 0;
 let computerScore = 0;
-
-function disableButtons() {
-  allButtons = document.querySelectorAll("button").forEach((button) => {
-    button.disabled = true;
-  });
-}
 
 // Randomizing computer's choice.
 function computerPlay() {
@@ -14,19 +10,16 @@ function computerPlay() {
   return possibleChoices[randomIndex];
 }
 
-const rockButton = document.getElementById("rockBtn");
-const scissorsButton = document.getElementById("scissorsBtn");
-const paperButton = document.getElementById("paperBtn");
-
-rockButton.addEventListener("click", () => {
-  playRound(computerPlay(), "rock");
-});
-scissorsButton.addEventListener("click", () => {
-  playRound(computerPlay(), "scissors");
-});
-paperButton.addEventListener("click", () => {
-  playRound(computerPlay(), "paper");
-});
+// Get player input, check for validity, and convert to lowercase for comparison.
+function playerInput() {
+  // input = prompt("Please choose one: Rock, Paper, or Scissors.").toLowerCase();
+  if (input === "rock" || input === "scissors" || input == "paper") {
+    return input;
+  } else {
+    alert("Sorry, that's not a valid choice.");
+    playerInput();
+  }
+}
 
 // Function to play a single round
 function playRound(pc, player) {
@@ -88,13 +81,23 @@ function playRound(pc, player) {
         "."
     );
   }
-  if (playerScore === 5 || computerScore === 5) {
-    if (playerScore > computerScore) {
-      console.log("You win the game! Yay!");
-      disableButtons();
-    } else if (computerScore > playerScore) {
-      console.log("You lose the game! Boo!");
-      disableButtons();
-    }
+}
+
+// Function to loop for 5 rounds, tracking points.
+function game() {
+  for (let rounds = 0; rounds < 5; rounds++) {
+    let computerSelection = computerPlay();
+    let playerSelection = playerInput();
+    console.log(playRound(computerSelection, playerSelection));
+  }
+
+  if (playerScore == computerScore) {
+    console.log("The game is a tie! Wow...");
+  } else if (playerScore > computerScore) {
+    console.log("You win the game! Yay!");
+  } else {
+    console.log("You lose the game! Boo!");
   }
 }
+
+game();
