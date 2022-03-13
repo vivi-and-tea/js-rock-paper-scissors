@@ -1,6 +1,12 @@
 let playerScore = 0;
 let computerScore = 0;
 
+const playerScoreText = document.getElementById("player");
+const computerScoreText = document.getElementById("computer");
+const roundInfo = document.getElementById("roundInfo");
+const winnerText = document.getElementById("winnerText");
+
+// Allow buttons to be disabled after game is finished.
 function disableButtons() {
   allButtons = document.querySelectorAll("button").forEach((button) => {
     button.disabled = true;
@@ -31,7 +37,7 @@ paperButton.addEventListener("click", () => {
 // Function to play a single round
 function playRound(pc, player) {
   if (pc == player) {
-    console.log("You both chose " + pc + ". It's a tie!");
+    roundInfo.textContent = "You both chose " + pc + ". It's a tie!";
     console.log(
       "Player Score: " +
         playerScore +
@@ -41,9 +47,8 @@ function playRound(pc, player) {
     );
   } else if (pc == "rock" && player == "scissors") {
     computerScore += 1;
-    console.log(
-      "You chose " + player + " and the computer chose " + pc + ". You lose!"
-    );
+    roundInfo.textContent =
+      "You chose " + player + " and the computer chose " + pc + ". You lose!";
     console.log(
       "Player Score: " +
         playerScore +
@@ -53,9 +58,8 @@ function playRound(pc, player) {
     );
   } else if (pc == "scissors" && player == "paper") {
     computerScore += 1;
-    console.log(
-      "You chose " + player + " and the computer chose " + pc + ". You lose!"
-    );
+    roundInfo.textContent =
+      "You chose " + player + " and the computer chose " + pc + ". You lose!";
     console.log(
       "Player Score: " +
         playerScore +
@@ -65,9 +69,8 @@ function playRound(pc, player) {
     );
   } else if (pc == "paper" && player == "rock") {
     computerScore += 1;
-    console.log(
-      "You chose " + player + " and the computer chose " + pc + ". You lose!"
-    );
+    roundInfo.textContent =
+      "You chose " + player + " and the computer chose " + pc + ". You lose!";
     console.log(
       "Player Score: " +
         playerScore +
@@ -77,9 +80,8 @@ function playRound(pc, player) {
     );
   } else {
     playerScore += 1;
-    console.log(
-      "You chose " + player + " and the computer chose " + pc + ". You win!"
-    );
+    roundInfo.textContent =
+      "You chose " + player + " and the computer chose " + pc + ". You win!";
     console.log(
       "Player Score: " +
         playerScore +
@@ -88,12 +90,16 @@ function playRound(pc, player) {
         "."
     );
   }
+  playerScoreText.textContent = playerScore;
+  computerScoreText.textContent = computerScore;
   if (playerScore === 5 || computerScore === 5) {
     if (playerScore > computerScore) {
-      console.log("You win the game! Yay!");
+      winnerText.style.fontSize = "4em";
+      winnerText.textContent = "You win the game! Yay!";
       disableButtons();
     } else if (computerScore > playerScore) {
-      console.log("You lose the game! Boo!");
+      winnerText.style.fontSize = "4em";
+      winnerText.textContent = "You lose the game! Boo!";
       disableButtons();
     }
   }
